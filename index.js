@@ -9,7 +9,6 @@ let guesses = [];
 const numbers = /^[0-9]+$/;
 const correctGuessText = "You are correct!";
 let wrongAttempts = 0;
-let gameOver = false;
 
 //call on our functions :)
 setHighScore();
@@ -29,10 +28,6 @@ function setHighScore(newHighScore) {
 }
 
 function getUserGuess() {
-    if (gameOver) {
-        alert("Please, restart the game to play again!")
-        return;
-    }
     const userInput = input.value;
     if (!userInput.match(numbers)) {
         alert("Only numbers allowed!");
@@ -55,7 +50,7 @@ function setMessage(userGuess) {
         guesses.push({ guess: userGuess, tooHigh: false });
     }
     else {
-        message.innerHTML = correctGuess + " Wrong Attempts: " + wrongAttempts + "!\nAttempts: "
+        message.innerHTML = correctGuessText + " Wrong Attempts: " + wrongAttempts + "!<br>Attempts: "
         for (let x = 0; x < guesses.length; x++) {
             message.innerHTML += "<span style='color: " + (guesses[x].tooHigh ? "red" : "green")
                 + "';>" + guesses[x].guess + ((x < guesses.length - 1) ? "," : "") + " </span>";
@@ -67,9 +62,9 @@ function setMessage(userGuess) {
         }
         setHighScore(newHighScore); //update high score :)
         restartBtn.style.visibility = "visible";
-        gameOver = true;
+        input.disabled = true;
     }
-    if (!message.innerHTML.includes(correctGuess)) {
+    if (!message.innerHTML.includes(correctGuessText)) {
         wrongAttempts++;
     }
     clearInput();
@@ -92,6 +87,6 @@ function resetGame() {
     secretNumber = randomInt(101);
     guesses = [];
     wrongAttempts = 0;
-    gameOver = false;
+    input.disabled = false;
     restartBtn.style.visibility = "hidden";
 }
