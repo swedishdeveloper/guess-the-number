@@ -2,7 +2,7 @@
 
 const input = document.getElementById("user-input");
 const message = document.getElementById("message");
-const restart = document.getElementsByTagName("button")[0];
+const restartBtn = document.getElementsByTagName("button")[0];
 const high_score = document.getElementById("high_score");
 let secretNumber = randomInt(101);
 let guesses = [];
@@ -66,7 +66,7 @@ function setMessage(userGuess) {
             newHighScore = true;
         }
         setHighScore(newHighScore); //update high score :)
-        restart.style.visibility = "visible";
+        restartBtn.style.visibility = "visible";
         gameOver = true;
     }
     if (!message.innerHTML.includes(correctGuess)) {
@@ -81,7 +81,7 @@ function registerListeners() {
             setMessage(getUserGuess());
         }
     });
-    restart.addEventListener("click", function () {
+    restartBtn.addEventListener("click", function () {
         resetGame();
     })
 }
@@ -93,5 +93,5 @@ function resetGame() {
     guesses = [];
     wrongAttempts = 0;
     gameOver = false;
-    restart.style.visibility = "hidden";
+    restartBtn.style.visibility = "hidden";
 }
