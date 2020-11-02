@@ -7,7 +7,7 @@ const high_score = document.getElementById("high_score");
 let secretNumber = randomInt(101);
 let guesses = [];
 const numbers = /^[0-9]+$/;
-const correctGuess = "You are correct!";
+const correctGuessText = "You are correct!";
 let wrongAttempts = 0;
 let gameOver = false;
 
@@ -55,7 +55,7 @@ function setMessage(userGuess) {
         guesses.push({ guess: userGuess, tooHigh: false });
     }
     else {
-        message.innerHTML = correctGuess + " Wrong Attempts: " + wrongAttempts + "! Attempts: "
+        message.innerHTML = correctGuess + " Wrong Attempts: " + wrongAttempts + "!\nAttempts: "
         for (let x = 0; x < guesses.length; x++) {
             message.innerHTML += "<span style='color: " + (guesses[x].tooHigh ? "red" : "green")
                 + "';>" + guesses[x].guess + ((x < guesses.length - 1) ? "," : "") + " </span>";
@@ -74,6 +74,24 @@ function setMessage(userGuess) {
     }
     clearInput();
 }
+
+
+function setMessage(userGuess) {
+    if (userGuess > secretNumber) {
+        message.innerHTML = "Too high!";
+    }
+    else if (userGuess < secretNumber) {
+        message.innerHTML = "Too low!";
+    }
+    else {
+        message.innerHTML = correctGuessText + " Wrong Attempts: " + wrongAttempts + "!\nAttempts: "
+    }
+    if (!message.innerHTML.includes(correctGuessText)) {
+        wrongAttempts++;
+    }
+    clearInput();
+}
+
 
 function registerListeners() {
     document.addEventListener("keyup", function (e) {
