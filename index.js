@@ -75,24 +75,6 @@ function setMessage(userGuess) {
     clearInput();
 }
 
-
-function setMessage(userGuess) {
-    if (userGuess > secretNumber) {
-        message.innerHTML = "Too high!";
-    }
-    else if (userGuess < secretNumber) {
-        message.innerHTML = "Too low!";
-    }
-    else {
-        message.innerHTML = correctGuessText + " Wrong Attempts: " + wrongAttempts + "!\nAttempts: "
-    }
-    if (!message.innerHTML.includes(correctGuessText)) {
-        wrongAttempts++;
-    }
-    clearInput();
-}
-
-
 function registerListeners() {
     document.addEventListener("keyup", function (e) {
         if (e.key === "Enter") {
